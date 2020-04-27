@@ -2,5 +2,3 @@
 
 An application by Group 6 for Software Engineering course Spring semester 2020.
 
-## Getting Started
-
