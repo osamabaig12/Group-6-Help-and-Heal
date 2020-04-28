@@ -24,7 +24,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Widget appBarTitle = new Text("Heal&Help");
-  static final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   String _email;
   String _password;
@@ -41,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return new Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: new AppBar
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 */                  Container(
                     padding: EdgeInsets.fromLTRB(12.0, 70.0, 0.0, 0.0),
-                    child: Text('Login!',
+                    child: Text('Login',
                         style: TextStyle(
                             fontSize: 70.0, fontWeight: FontWeight.bold , color: Color.fromRGBO(81, 200, 196, 1.0)) ),
                   )
@@ -78,109 +79,147 @@ class _MyHomePageState extends State<MyHomePage> {
 */                ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-              child: Form(
-                  child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                            labelText: 'USERNAME/EMAIL',
-                            labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green))),
-                        validator: (value) => value.isEmpty ? 'Username/Email can\'t be empty.' : null,
-                        onSaved: (val) => _email = val,
+            Expanded(
+              child: Container(
 
-                      ),
-                      SizedBox(height: 20.0),
-                      TextFormField(
-                        decoration: InputDecoration(
-                            labelText: 'PASSWORD',
-                            labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green))),
-                        obscureText: true,
-                      ),
-                      SizedBox(height: 5.0),
-                      Container(
-                        alignment: Alignment(1.0, 0.0),
-                        padding: EdgeInsets.only(top: 15.0, left: 20.0),
-                        child: InkWell(
-                          child: Text(
-                            'Forgot Password',
-                            style: TextStyle(
-                                color: Color.fromRGBO(81, 200, 196, 1.0),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Montserrat',
-                                decoration: TextDecoration.underline),
+                padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+
+
+                          decoration: InputDecoration(
+                              labelText: 'EMAIL',
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green))),
+                          validator: (value){
+                              if (value == null || value.isEmpty) {
+                                return 'Username can\'t be empty.';
+                              }
+                              return null;
+
+                          },
+                          onSaved: (val) => _email = val,
+                          obscureText: true,
+                        ),
+                        SizedBox(height: 20.0),
+                        TextFormField(
+                          decoration: InputDecoration(
+                              labelText: 'PASSWORD',
+                              labelStyle: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green))),
+                            validator: (value){
+                              if (value == null || value.isEmpty) {
+                                return 'Password can\'t be empty.';
+                              }
+                              return null;
+
+                            },
+                          onSaved: (val) => _password = val,
+                          obscureText: true,
+                        ),
+                        SizedBox(height: 5.0),
+                        Container(
+                          alignment: Alignment(1.0, 0.0),
+                          padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                          child: InkWell(
+                            child: Text(
+                              'Forgot Password',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(81, 200, 196, 1.0),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  fontFamily: 'Montserrat',
+                                  decoration: TextDecoration.underline),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 40.0),
-                      Container(
-                        height: 40.0,
-                        child: Material(
-                          borderRadius: BorderRadius.circular(20.0),
-                          shadowColor: Colors.greenAccent,
-                          color: Color.fromRGBO(81, 200, 196, 1.0),
-                          elevation: 7.0,
-                          child: GestureDetector(
-                            onTap: () async {
-                              dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
-                              if(result == null){
-                                //error signing in
-                                Navigator.of(context).pushNamed('/forum');
-                              }else{
-                                //signed in, link to root page
-                                Navigator.of(context).pushNamed('/forum');
+                        SizedBox(height: 40.0),
+                        Container(
+                          height: 40.0,
+                          child: Material(
+                            borderRadius: BorderRadius.circular(20.0),
+                            shadowColor: Colors.greenAccent,
+                            color: Color.fromRGBO(81, 200, 196, 1.0),
+                            elevation: 7.0,
+                            child: GestureDetector(
+                              onTap: () async {
+                                //print(_email);
+                                //print(_password);
+                                if(_formKey.currentState.validate()){
+                                _formKey.currentState.save();
+                                print(_email);
+                                print(_password);
+                                dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
+                                if(result == null){
+
+                                  //error signing in
+                                  //Navigator.of(context).pop("Invalid Username");
+                                  //Navigator.of(context).pushNamed('/forum');
+                                }else{
+                                  //signed in, link to root page
+                                  Navigator.of(context).pushNamed('/forum');
+                                }
                               }
-                            },
-                            child: Center(
-                              child: Text(
-                                'LOGIN',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Montserrat'),
+                                },
+                              child: Center(
+
+                                child: Text(
+                                  'LOGIN',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      fontFamily: 'Montserrat'),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  )
+                      ],
+                    )
+                ),
               ),
             ),
             SizedBox(height: 15.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'New to Heal&Help?',
-                  style: TextStyle(fontFamily: 'Montserrat'),
-                ),
-                SizedBox(width: 5.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/signup');
-                  },
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                        color: Color.fromRGBO(81, 200, 196, 1.0),
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline),
+            Container(
+              padding: EdgeInsets.only(bottom: 60),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+
+                    'New to Heal&Help?',
+
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 20,),
                   ),
-                )
-              ],
+                  SizedBox(width: 5.0),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/signup');
+                    },
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                          color: Color.fromRGBO(81, 200, 196, 1.0),
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          decoration: TextDecoration.underline),
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ));

@@ -1,13 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'signup.dart';
 import 'my_flutter_app_icons.dart';
 import 'forum_second.dart';
+class Posts{
+  String userName;
+  String userImage;
+  String feedTime;
+  String feedText;
+  String feedImage;
+  int likes;
+  List comments = [];
+  Posts({this.userName, this.userImage, this.feedTime, this.feedText, this.feedImage, this.likes, this.comments});
+}
 void main() => runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ForumPage(),
     )
 );
+final List entries = [Posts(userName: 'Azamat Zhanisov',
+    userImage: 'lib/se/icons8-female-profile-100.png',
+    feedTime: '3 mins ago',
+    feedText: "All the Lorem Ipsum generators on the Internet tend to repeat predefined.",
+    feedImage: '',
+    likes: 40,
+    comments: [],
+), ];
 
 class ForumPage extends StatefulWidget {
   @override
@@ -18,262 +37,321 @@ class _ForumPageState extends State<ForumPage> {
   @override
   String result = '';
   int _curIndex = 0;
+/*  makeFeed(
+  userName: 'Azamat Zhanisov',
+  userImage: 'lib/se/icons8-female-profile-100.png',
+  feedTime: '3 mins ago',
+  feedText: "All the Lorem Ipsum generators on the Internet tend to repeat predefined.",
+  feedImage: ''
+  ),
+*/
+  final List<int> colorCodes = <int>[600, 500, 100, 200];
   Widget build(BuildContext context) {
     var queryData = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Container(
-              padding: EdgeInsets.only(top: 50, right: 20, left: 20, bottom: 10),
-              child: TextField(
-                textAlign: TextAlign.start,
-                //onTap: (){},
-                decoration: InputDecoration(
-                  //prefixIcon: Icon(Icons.search, color: Colors.grey,),
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0),fontSize: 20,fontWeight: FontWeight.w800, ),
-                  hintText: "Hello! Hope you're doing great today!",
+      appBar: new AppBar(
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Color.fromRGBO(81, 200, 196, 1.0),
+        title: new Text(
+          "Heal&Help",
+          textScaleFactor: 1.3,
+        ),
+      ),
 
-                ),
-              )
-          ),
-          Container(
-            height: 100,
-            width: queryData.size.width/1.55,
-            padding: EdgeInsets.only(top: 0, right: 20, left: 20, bottom: 50),
-            child: Row(
-              children: <Widget>[
-                /*Expanded(
-                  child: Container(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 10),
+                child: TextField(
+                  textAlign: TextAlign.start,
+                  //onTap: (){},
+                  decoration: InputDecoration(
+                    //prefixIcon: Icon(Icons.search, color: Colors.grey,),
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0),fontSize: 22,fontWeight: FontWeight.bold, ),
+                    hintText: "Hello! Hope you're doing great today!",
 
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey[200]
-                    ),
-                    child: Text(
-                      ),
-                    ),
                   ),
-                ),*/
-                Expanded(
-                  child: Container(
-
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Color.fromRGBO(81, 200, 196, 1.0)
-                    ),
-                    child: TextField(
-                      onTap: (){},
-                      decoration: InputDecoration(
-                        prefixIcon: IconButton(
-                          icon: Icon(Icons.search),
-                          color: Colors.white,
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/forum');
-                          },
-                        ),//Icon(Icons.search, color: Colors.white,),
-                        border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.white),
-                        hintText: "Search for a Post",
-                      ),
-                    ),
-                  ),
-                ),
-                //SizedBox(width: 20,),
-                /*Icon(Icons.camera_alt, color: Colors.grey[800], size: 30,)*/
-              ],
+                )
             ),
-            //HERE WE'LL ADD CREATE POST BAR
+            Container(
+              height: 100,
+              width: queryData.size.width/1.55,
+              padding: EdgeInsets.only(top: 0, right: 20, left: 20, bottom: 50),
+              child: Row(
+                children: <Widget>[
+                  /*Expanded(
+                    child: Container(
 
-          ),
-
-          Container(
-            height: 90,
-
-            padding: EdgeInsets.only(top: 0, right: 20, left: 20, bottom: 20),
-            child: Row(
-
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Image(image: AssetImage('lib/se/icons8-male-user-150.png')),
-
-                //Icon(Icons.person, color: Colors.grey,),
-                SizedBox(width: queryData.size.width/20,),
-                Expanded(
-                  child: Container(
-                    width: queryData.size.width/1.25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.white,
-
-                      border: Border.all(
-                        color: Color.fromRGBO(81, 200, 196, 1.0),
-                        width: 2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.grey[200]
+                      ),
+                      child: Text(
+                        ),
                       ),
                     ),
-                    //shape: BoxShape.circle,
+                  ),*/
+                  Expanded(
+                    child: Container(
+
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Color.fromRGBO(81, 200, 196, 1.0)
+                      ),
+                      child: TextField(
+                        onTap: (){},
+                        decoration: InputDecoration(
+                          prefixIcon: IconButton(
+                            icon: Icon(Icons.search),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/forum');
+                            },
+                          ),//Icon(Icons.search, color: Colors.white,),
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Monterrat'),
+                          hintText: "Search for a Post",
+                        ),
+                      ),
+                    ),
+                  ),
+                  //SizedBox(width: 20,),
+                  /*Icon(Icons.camera_alt, color: Colors.grey[800], size: 30,)*/
+                ],
+              ),
+              //HERE WE'LL ADD CREATE POST BAR
+
+            ),
+
+            Container(
+              height: 90,
+
+              padding: EdgeInsets.only(top: 0, right: 20, left: 20, bottom: 20),
+              child: Row(
+
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Image(image: AssetImage('lib/se/icons8-male-user-150.png')),
+
+                  //Icon(Icons.person, color: Colors.grey,),
+                  SizedBox(width: queryData.size.width/20,),
+                  Expanded(
+                    child: Container(
+                      width: queryData.size.width/1.25,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+
+                        border: Border.all(
+                          color: Color.fromRGBO(81, 200, 196, 1.0),
+                          width: 2,
+                        ),
+                      ),
+                      //shape: BoxShape.circle,
 
 
-                    child: TextField(
-                      onTap: ()async {
-                        result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ForumDetailPage()),
-                        );
-                        //Navigator.of(context).pushNamed('/forumpost');
+                      child: TextField(
+                        onTap: ()async {
+                          result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ForumDetailPage()),
+                          );
+                          //Navigator.of(context).pushNamed('/forumpost');
 
                         },
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        //prefixIcon: Icon(Icons.search, color: Colors.grey,),
-                        border: InputBorder.none,
-                        hintStyle: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0)),
-                        hintText: "What's on your mind?",
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          //prefixIcon: Icon(Icons.search, color: Colors.grey,),
+
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0),fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Montserrat'),
+                          hintText: "What's on your mind?",
+                        ),
                       ),
                     ),
                   ),
-                ),
 
-              ],
+                ],
+              ),
+              //HERE WE'LL ADD CREATE POST BAR
+
             ),
-            //HERE WE'LL ADD CREATE POST BAR
-
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    /*Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
+                Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Text("Stories", style: TextStyle(color: Colors.grey[900], fontWeight: FontWeight.bold, fontSize: 22, letterSpacing: 1.2),),
-                        Text("See Archive"),
-                      ],
-                    ),*/
-                    //SizedBox(height: 20,),
-                    /*Container(
-                      height: 180,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: <Widget>[
-                          makeStory(
-                              storyImage: 'assets/images/story/story-1.jpg',
-                              userImage: 'assets/images/aatik-tasneem.jpg',
-                              userName: 'Aatik Tasneem'
-                          ),
-                          makeStory(
-                              storyImage: 'assets/images/story/story-3.jpg',
-                              userImage: 'assets/images/aiony-haust.jpg',
-                              userName: 'Aiony Haust'
-                          ),
-                          makeStory(
-                              storyImage: 'assets/images/story/story-4.jpg',
-                              userImage: 'assets/images/averie-woodard.jpg',
-                              userName: 'Averie Woodard'
-                          ),
-                          makeStory(
-                              storyImage: 'assets/images/story/story-5.jpg',
-                              userImage: 'assets/images/azamat-zhanisov.jpg',
-                              userName: 'Azamat Zhanisov'
-                          ),
+                        //<< any widgets added
+                      Container(
+                        height: queryData.size.height/2.5,
+                        child: ListView.builder(
+
+                          //scrollDirection: Axis.vertical,
+                        //shrinkWrap: true,
+                        //here your code
+                        scrollDirection: Axis.vertical,
+                        itemCount: entries.length,
+                        itemBuilder: (BuildContext context, int index) {
+                              return makeFeed(
+                                  userName: (entries[index].userName).toString(),
+                                  userImage : (entries[index].userImage),
+                                  feedTime: (entries[index].feedTime).toString(),
+                                  feedText: (entries[index].feedText).toString(),
+                                  feedImage : (entries[index].feedImage).toString(),
+                                  likes:  (entries[index].likes).toString(),
+                                  index_of_post : index.toString(),
+
+                              );/*Container(
+                              height: 100,
+                              color: Colors.amber[colorCodes[index]],
+                              child: Center(child: Text('Entry ${entries[index]}')),
+                              );*/
+                        },
+                        //separatorBuilder: (BuildContext context, int index) => const Divider(),
+                        )
+                        ),
+
+                        //Divider(),//<< any widgets added
                         ],
+                        ),
+
+            /*Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      *//*Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: <Widget>[
+                          Text("Stories", style: TextStyle(color: Colors.grey[900], fontWeight: FontWeight.bold, fontSize: 22, letterSpacing: 1.2),),
+                          Text("See Archive"),
+                        ],
+                      ),*//*
+                      //SizedBox(height: 20,),
+                      *//*Container(
+                        height: 180,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: <Widget>[
+                            makeStory(
+                                storyImage: 'assets/images/story/story-1.jpg',
+                                userImage: 'assets/images/aatik-tasneem.jpg',
+                                userName: 'Aatik Tasneem'
+                            ),
+                            makeStory(
+                                storyImage: 'assets/images/story/story-3.jpg',
+                                userImage: 'assets/images/aiony-haust.jpg',
+                                userName: 'Aiony Haust'
+                            ),
+                            makeStory(
+                                storyImage: 'assets/images/story/story-4.jpg',
+                                userImage: 'assets/images/averie-woodard.jpg',
+                                userName: 'Averie Woodard'
+                            ),
+                            makeStory(
+                                storyImage: 'assets/images/story/story-5.jpg',
+                                userImage: 'assets/images/azamat-zhanisov.jpg',
+                                userName: 'Azamat Zhanisov'
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    */SizedBox(height: 40,),
-                    makeFeed(
-                        userName: 'R Van Persie',
-                        userImage: 'lib/se/icons8-male-user-150.png',
-                        feedTime: '1 hr ago',
-                        feedText: result,
-                        feedImage: ''
-                    ),
-                    makeFeed(
-                        userName: 'Aiony Haust',
-                        userImage: 'lib/se/icons8-male-user-150.png',
-                        feedTime: '1 hr ago',
-                        feedText: 'All the Lorem Ipsum generators on the Internet tend to repeat predefined.',
-                        feedImage: ''
-                    ),
-                    makeFeed(
-                        userName: 'Azamat Zhanisov',
-                        userImage: 'lib/se/icons8-female-profile-100.png',
-                        feedTime: '3 mins ago',
-                        feedText: "All the Lorem Ipsum generators on the Internet tend to repeat predefined.All the Lorem Ipsum generators on the Internet tend to repeat predefined.All the Lorem Ipsum generators on the Internet tend to repeat predefined.",
-                        feedImage: ''
-                    ),
-                    makeFeed(
-                        userName: 'Azamat Zhanisov',
-                        userImage: 'lib/se/icons8-female-profile-100.png',
-                        feedTime: '3 mins ago',
-                        feedText: "All the Lorem Ipsum generators on the Internet tend to repeat predefined.",
-                        feedImage: ''
-                    ),
-                  ],
+                      *//*SizedBox(height: 40,),
+                      makeFeed(
+                          userName: 'R Van Persie',
+                          userImage: 'lib/se/icons8-male-user-150.png',
+                          feedTime: '1 hr ago',
+                          feedText: result,
+                          feedImage: ''
+                      ),
+                      makeFeed(
+                          userName: 'Aiony Haust',
+                          userImage: 'lib/se/icons8-male-user-150.png',
+                          feedTime: '1 hr ago',
+                          feedText: 'All the Lorem Ipsum generators on the Internet tend to repeat predefined.',
+                          feedImage: ''
+                      ),
+                      makeFeed(
+                          userName: 'Azamat Zhanisov',
+                          userImage: 'lib/se/icons8-female-profile-100.png',
+                          feedTime: '3 mins ago',
+                          feedText: "All the Lorem Ipsum generators on the Internet tend to repeat predefined.All the Lorem Ipsum generators on the Internet tend to repeat predefined.All the Lorem Ipsum generators on the Internet tend to repeat predefined.",
+                          feedImage: ''
+                      ),
+                      makeFeed(
+                          userName: 'Azamat Zhanisov',
+                          userImage: 'lib/se/icons8-female-profile-100.png',
+                          feedTime: '3 mins ago',
+                          feedText: "All the Lorem Ipsum generators on the Internet tend to repeat predefined.",
+                          feedImage: ''
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
-      ),
-        bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Color.fromRGBO(81, 200, 196, 1.0),
-            //backgroundColor: Color.fromRGBO(81, 200, 196, 1.0),
-            items:
-            [
-              BottomNavigationBarItem(
-                icon: new Icon(Icons.spa,color: Colors.white,size: 50,),
-                title: Text(' ',),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(Icons.show_chart,color: Colors.white,size: 50,),
-                title: Text(' '),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(Icons.home,color: Colors.white,size: 50,),
-                title: Text(' '),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(Icons.message,color: Colors.white,size: 50,),
-                title: Text(' ',),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(Icons.settings,color: Colors.white,size: 50,),
-                title: Text(' '),
-              ),
-            ],
-          currentIndex: _curIndex,
-          onTap: (index) {
-            setState(() {
-              _curIndex = index;
-              switch (_curIndex) {
-                case 0:
-                  Navigator.of(context).pushNamed('/inhale');
-                  break;
-                case 1:
-                  Navigator.of(context).pushNamed('/login');
-                  break;
-                case 2:
-                  Navigator.of(context).pushNamed('/forum');
-                  break;
-                case 3:
-                  Navigator.of(context).pushNamed('/chat');
-                  break;
-                case 4:
-                  Navigator.of(context).pushNamed('/inhale');
-                  break;
-              }
-            });
-          },
+            )*/
+          ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color.fromRGBO(81, 200, 196, 1.0),
+        //backgroundColor: Color.fromRGBO(81, 200, 196, 1.0),
+        items:
+        [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.spa,color: Colors.white,size: 50,),
+            title: Text(' ',style: TextStyle(color: _curIndex == 0 ? Colors.white : Colors.white),),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.show_chart,color: Colors.white,size: 50,),
+            title: Text(' '),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home,color: Colors.white,size: 50,),
+            title: Text(' '),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.message,color: Colors.white,size: 50,),
+            title: Text(' ',),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.settings,color: Colors.white,size: 50,),
+            title: Text(' '),
+          ),
+        ],
+        currentIndex: _curIndex,
+        onTap: (index) {
+          setState(() {
+            _curIndex = index;
+            switch (_curIndex) {
+              case 0:
+                Navigator.of(context).pushNamed('/inhale');
+                break;
+              case 1:
+                Navigator.of(context).pushNamed('/login');
+                break;
+              case 2:
+                Navigator.of(context).pushNamed('/forum');
+                break;
+              case 3:
+                Navigator.of(context).pushNamed('/chat');
+                break;
+              case 4:
+                Navigator.of(context).pushNamed('/inhale');
+                break;
+            }
+          });
+        },
+      ),
     );
 
   }
@@ -327,9 +405,10 @@ class _ForumPageState extends State<ForumPage> {
     );
   }
 */
-  Widget makeFeed({userName, userImage, feedTime, feedText, feedImage}) {
+  Widget makeFeed({userName, userImage, feedTime, feedText, feedImage, likes,index_of_post}) {
+    var queryData = MediaQuery.of(context);
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(right: 20 ,left:20, bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -343,9 +422,11 @@ class _ForumPageState extends State<ForumPage> {
                     height: 50,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
+
                         image: DecorationImage(
                             image: AssetImage(userImage),
-                            fit: BoxFit.cover
+
+                            //fit: BoxFit.cover
                         )
                     ),
                   ),
@@ -353,6 +434,7 @@ class _ForumPageState extends State<ForumPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+
                       Text(userName, style: TextStyle(color: Colors.grey[900], fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 1),),
                       SizedBox(height: 3,),
                       Text(feedTime, style: TextStyle(fontSize: 15, color: Colors.grey),),
@@ -386,14 +468,17 @@ class _ForumPageState extends State<ForumPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+
               Row(
+                //key: ,
                 children: <Widget>[
                   makeLike(),
                   Transform.translate(
                     offset: Offset(-5, 0),
                   ),
                   SizedBox(width: 5,),
-                  Text("2.5K", style: TextStyle(fontSize: 15, color: Colors.grey[800]),)
+
+                  Text('$likes', style: TextStyle(fontSize: 15, color: Colors.grey[800]),)
                 ],
               ),
               Text("400 Comments", style: TextStyle(fontSize: 13, color: Colors.grey[800]),)
@@ -403,7 +488,73 @@ class _ForumPageState extends State<ForumPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              makeLikeButton(),
+          Row(
+          children: [
+          Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color.fromRGBO(81, 200, 196, 1.0),width: 2,),
+          //borderRadius: BorderRadius.circular(50),
+        ),
+        child: GestureDetector(
+
+          child: Center(
+            child: Row(
+
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(width: queryData.size.width/10,
+                ),
+                Icon(Icons.thumb_up, color: Color.fromRGBO(81, 200, 196, 1.0), size: 18),
+                SizedBox(width: queryData.size.width/40,),
+                Text("Like", style: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0)),textAlign: TextAlign.center,),
+                SizedBox(width: queryData.size.width/9,
+                ),
+              ],
+            ),
+          ),
+          onTap: ()  {
+            print("here");
+            setState(() {
+              int y = int.parse(likes);
+              y++;
+              print(y);
+              likes = int.parse(likes);
+              likes = y;
+              //likes = y.toString();
+              print(likes);
+              entries[int.parse(index_of_post)].likes = likes;
+            });
+
+          },
+        )
+    ),
+    Container(
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    decoration: BoxDecoration(
+    border: Border.all(color: Color.fromRGBO(81, 200, 196, 1.0),width: 2,),
+    //borderRadius: BorderRadius.circular(50),
+    ),
+    child: GestureDetector(
+    onTap: () {},
+    child: Center(
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+
+    children: <Widget>[
+    SizedBox(width: queryData.size.width/25,
+    ),
+    Icon(Icons.chat, color: Color.fromRGBO(81, 200, 196, 1.0), size: 18),
+    SizedBox(width: queryData.size.width/40,),
+    Text("Comment", style: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0)),textAlign: TextAlign.center,),
+    SizedBox(width: queryData.size.width/15,
+    ),
+    ],
+    ),
+    ),
+    )
+    ),
+    ]),
               //makeCommentButton(),
               //makeShareButton(),
             ],
@@ -443,64 +594,11 @@ class _ForumPageState extends State<ForumPage> {
     );
   }
 
-  Widget makeLikeButton() {
+ /* Widget makeLikeButton({likes_at_post}) {
     var queryData = MediaQuery.of(context);
-    return Row(
-        children: [
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(81, 200, 196, 1.0),width: 2,),
-                //borderRadius: BorderRadius.circular(50),
-              ),
-              child: GestureDetector(
-
-
-                child: Center(
-                  child: Row(
-
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(width: queryData.size.width/10,
-                      ),
-                      Icon(Icons.thumb_up, color: Color.fromRGBO(81, 200, 196, 1.0), size: 18),
-                      SizedBox(width: queryData.size.width/40,),
-                      Text("Like", style: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0)),textAlign: TextAlign.center,),
-                      SizedBox(width: queryData.size.width/9,
-                      ),
-                    ],
-                  ),
-                ),
-              )
-          ),
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(81, 200, 196, 1.0),width: 2,),
-                //borderRadius: BorderRadius.circular(50),
-              ),
-              child: GestureDetector(
-                onTap: () {},
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-
-                    children: <Widget>[
-                      SizedBox(width: queryData.size.width/25,
-                      ),
-                      Icon(Icons.chat, color: Color.fromRGBO(81, 200, 196, 1.0), size: 18),
-                      SizedBox(width: queryData.size.width/40,),
-                      Text("Comment", style: TextStyle(color: Color.fromRGBO(81, 200, 196, 1.0)),textAlign: TextAlign.center,),
-                      SizedBox(width: queryData.size.width/15,
-                      ),
-                    ],
-                  ),
-                ),
-              )
-          ),
-        ]);
+    return;
   }
-
+*/
 /* Widget makeCommentButton() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -547,10 +645,12 @@ class ForumDetailPage extends StatelessWidget {
   String post = 'How are you';
   final List<Widget> children = [];
   final _formKey = GlobalKey<FormState>();
+
   @override
 
   Widget build(BuildContext context) {
     var queryData = MediaQuery.of(context);
+    String post_content = '';
     return new Scaffold(
 
       appBar: new AppBar(
@@ -558,7 +658,7 @@ class ForumDetailPage extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(81, 200, 196, 1.0),
         title: new Text(
-          "heal&help",
+          "Heal&Help",
           textScaleFactor: 1.3,
         ),
       ),
@@ -621,8 +721,22 @@ class ForumDetailPage extends StatelessWidget {
                                   color: Color.fromRGBO(81, 200, 196, 1.0),
                                   elevation: 7.0,
                                   child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context, post);
+                                    onTap: () async {
+                                    if(_formKey.currentState.validate()) {
+                                       _formKey.currentState.save();
+
+                                       entries.add(Posts(userName: username,
+                                           userImage: 'lib/se/icons8-male-user-150.png',
+                                           feedTime: '1 s ago',
+                                           feedText: post_content,
+                                           feedImage: '',
+                                           likes: 0
+                                       )
+                                        //   Navigator.pushNamed(context, '/forum');
+                                       );
+                                       Navigator.pushNamed(context, '/forum');
+                                    }
+    //Navigator.pop(context, post);
                                       //Navigator.pushNamed(context, '/forum');
                                     },
                                     child: Center(
@@ -667,7 +781,7 @@ class ForumDetailPage extends StatelessWidget {
                             ),
                             SizedBox(width: queryData.size.width/20),
                             Text(
-                              'R. Van Persie',
+                              username,
                               style: TextStyle(
                                   color: Color.fromRGBO(81, 200, 196, 1.0),
                                   fontWeight: FontWeight.bold,
@@ -709,15 +823,15 @@ class ForumDetailPage extends StatelessWidget {
                                             hintText: 'Please type in your post here',
 
                                           ),
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Please enter some text';
+                                          validator: (value){
+                                            if (value == null || value.isEmpty) {
+                                              return 'Posts can\'t be empty.';
                                             }
-                                            else{
-                                              post = value;
-                                              return value;
-                                            }
+                                            return null;
+
                                           },
+                                          onSaved: (val) => post_content = val,
+
                                         ),
 
                                       ],
@@ -809,3 +923,123 @@ class _BottomNavigationBarState extends State<BottomNavigationBar> {
     ),);
   }
 }*/
+
+/*
+class CommentSection extends StatefulWidget {
+  @override
+  _CommentSectionState createState() => _CommentSectionState();
+}
+
+class _CommentSectionState extends State<CommentSection> {
+  @override
+
+
+  Widget build(BuildContext context) {
+    var queryData = MediaQuery.of(context);
+    return new Scaffold(
+
+        appBar: new AppBar(
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Color.fromRGBO(81, 200, 196, 1.0),
+    title: new Text(
+    "Comments",
+    textScaleFactor: 1.3,
+    ),
+    ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          //<< any widgets added
+          Container(
+              height: queryData.size.height/2.2,
+              child: ListView.builder(
+
+                //scrollDirection: Axis.vertical,
+                //shrinkWrap: true,
+                //here your code
+                scrollDirection: Axis.vertical,
+                itemCount: entries.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return makeFeed(
+                    userName: (entries[index].userName).toString(),
+                    userImage : (entries[index].userImage).toString(),
+                    feedTime: (entries[index].feedTime).toString(),
+                    feedText: (entries[index].feedText).toString(),
+                    feedImage : (entries[index].feedImage).toString(),
+                    likes:  (entries[index].likes).toString(),
+                    index_of_post : index.toString(),
+
+                  );*/
+/*Container(
+                              height: 100,
+                              color: Colors.amber[colorCodes[index]],
+                              child: Center(child: Text('Entry ${entries[index]}')),
+                              );*//*
+
+                },
+                //separatorBuilder: (BuildContext context, int index) => const Divider(),
+              )
+          ),
+
+          //Divider(),//<< any widgets added
+        ],
+      ),
+
+      Expanded(
+
+        child: Container(
+
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Color.fromRGBO(81, 200, 196, 1.0)
+          ),
+          child: TextField(
+            onTap: (){},
+            decoration: InputDecoration(
+              prefixIcon: IconButton(
+                icon: Icon(Icons.search),
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forum');
+                },
+              ),//Icon(Icons.search, color: Colors.white,),
+              border: InputBorder.none,
+              hintStyle: TextStyle(color: Colors.white),
+              hintText: "Search for a Post",
+            ),
+          ),
+        ),
+      ),
+
+
+    );
+  }
+  Widget makeComment({userName, userImage, feedTime, feedText, feedImage, likes,index_of_post, comment}) {
+    var queryData = MediaQuery.of(context);
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Text(
+            username+": ",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat'),
+          ),
+          SizedBox(width: queryData.size.width/20 ),
+          Text(comment,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat'),),
+        ],
+      ),
+
+    );
+  }
+
+}
+*/

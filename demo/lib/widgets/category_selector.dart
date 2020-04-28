@@ -38,7 +38,7 @@ class _CategorySelectorState extends State<CategorySelector> {
 
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                  color: Color.fromRGBO(81, 200, 196, 1.0),
+                  color: Colors.white,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,

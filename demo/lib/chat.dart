@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:demo/widgets/category_selector.dart';
+import 'widgets/category_selector.dart';
 //import 'package:flutter_chat_ui/widgets/favorite_contacts.dart';
-import 'package:demo/widgets/recent_chats.dart';
-import 'package:demo/models/message_model.dart';
+import 'widgets/recent_chats.dart';
+import 'models/message_model.dart';
 
 void main() => runApp(MyChat());
 
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
         [
           BottomNavigationBarItem(
             icon: new Icon(Icons.spa,color: Colors.white,size: 50,),
-            title: Text(' ',),
+            title: Text(' ',style: TextStyle(color: _curIndex == 0 ? Colors.white : Colors.white),),
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.show_chart,color: Colors.white,size: 50,),

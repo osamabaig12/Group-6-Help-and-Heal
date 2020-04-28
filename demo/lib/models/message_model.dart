@@ -1,4 +1,4 @@
-import 'package:demo/models/user_model.dart';
+import 'user_model.dart';
 
 class Message {
   final User sender;

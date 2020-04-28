@@ -15,10 +15,10 @@ void main() => runApp(MaterialApp(
 
 class MyExhale extends StatefulWidget {
   @override
-  MyExhaleState createState() => MyExhaleState();
+  MyAppState createState() => MyAppState();
 }
 
-class MyExhaleState extends State<MyExhale> with TickerProviderStateMixin {
+class MyAppState extends State<MyExhale> with TickerProviderStateMixin {
   AnimationController controller;
 
   String get timerString {
