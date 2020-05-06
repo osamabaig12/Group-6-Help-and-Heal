@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
-import 'forum_first.dart';
-import 'forum_second.dart';
-import 'login.dart';
-import 'signup.dart';
-import 'colors.dart';
-import 'inhale.dart';
-import 'chat.dart';
-import 'screens/chat_screen.dart';
-void main() => runApp(new MyApp());
+import 'package:settings/screens/home_screen.dart';
+import 'package:settings/screens/change_username_default.dart';
+import 'package:settings/screens/change_username_error.dart';
+import 'package:settings/screens/change_password_error.dart';
+import 'package:settings/screens/change_username_successful.dart';
+import 'package:settings/screens/change_password_successful.dart';
+import 'package:settings/screens/change_password_default.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Forum',
-      theme: new ThemeData(
-        primarySwatch: AppColorsTheme.myTheme.primarySwatch,
+    return MaterialApp(
+      title: 'Settings',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Color.fromRGBO(81, 200, 196, 1.0),
+        accentColor: Colors.white,
       ),
-      routes: <String, WidgetBuilder>{
-        /*'/':      , //(BuildContext context) => new LoginPage(),*/
-        //'/': (BuildContext context) => new ForumPage(),
-        '/': (BuildContext context) => new MyHomePage(),
-        '/signup': (BuildContext context) => new SignupPage(),
-        '/forum': (BuildContext context) => new ForumPage(),
-        '/login': (BuildContext context) => new MyHomePage(),
-        '/inhale': (BuildContext context) => new MyInhale(),
-        '/chat': (BuildContext context) => new HomeScreen(),
-        //'/forumpost': (BuildContext context) => new ForumDetailPage(),
-      },
-      initialRoute: '/',
+      home: HomeScreen(),
     );
   }
 }
